@@ -2,13 +2,11 @@ FROM maven:3.9-eclipse-temurin-8 AS builder
 
 WORKDIR /app
 
-COPY pom.xml .
-COPY src ./src
+COPY . .
 
 RUN mvn clean package -DskipTests
 
-RUN find /app/target -maxdepth 1 -type f -name "*.war" -print
-
+RUN find /app/target -type f -name "*.war" -print
 
 FROM tomcat:8.5-jdk8
 
